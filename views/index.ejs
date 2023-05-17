@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='assets/style.css'>
+    <title>Lista de personas</title>
+</head>
+
+<body>
+    <h1>Lista de personas</h1>
+    <form action="/find" method="POST">
+        <div style="margin-bottom: 10px;">
+            <span style="margin-left: 10%;">🔎</span>
+            <input type="text" id="criteria" name="criteria" placeholder="Buscar por nombre">
+            <button id="submit">Buscar</button>
+        </div>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Tipo de sangre</th>
+                <th>NSS</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% Object.keys(Persons).forEach(function(prop) { %>
+                <tr>
+                    <td>
+                        <%= Persons[prop].nombre %>
+                    </td>
+                    <td>
+                        <%= Persons[prop].edad %>
+                    </td>
+                    <td>
+                        <%= Persons[prop].tipoSangre %>
+                    </td>
+                    <td>
+                        <%= Persons[prop].nss %>
+                    </td>
+                    <td>
+                        <a href="<%= `findById/${Persons[prop]._id}` %>" class="editPersonLink">Editar</a>
+                        <!-- con esto nos permite redireccionar el flujo hacia la vista que nos permite editar 
+                            un documento en la colección -->
+                    </td>
+                    <td>
+                        <a href="<%= `deletePerson/${Persons[prop]._id}` %>" class="deletePersonLink">Eliminar</a>
+                        <!-- con esto nos permite redireccionar el flujo hacia la vista que nos permite eliminar 
+                            un documento en la colección -->
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 10px; margin-left: 10%;">
+        <a href="./addPerson" class="createPersonLink">Agregar</a>
+    </div>
+
+</body>
+
+</html>
